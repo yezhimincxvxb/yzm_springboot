@@ -13,7 +13,6 @@
     <contextName>logback</contextName>
 
     <!-- name的值是变量的名称，value的值时变量定义的值。通过定义的值会被插入到logger上下文中。定义后，可以使“${}”来使用变量。 -->
-    <property name="pattern" value="%d{yy/MM/dd HH:mm:ss} %-5level %logger{15}.%method:%L --%msg%n"/>
     <property name="logPath" value="./logback/logs"/>
 
     <!-- 控制台日志：输出所有级别的日志 -->
@@ -31,7 +30,7 @@
         -->
         <encoder charset='UTF-8'>
             <pattern>
-                %red(%d{yy/MM/dd HH:mm:ss}) %-5level %green([%thread]) %boldMagenta(%logger{20}.%method):%L --%cyan(%msg%n)
+                %red(%d{yy/MM/dd HH:mm:ss}) %yellow(%-5level) %green([%thread]) %boldMagenta(%logger{20}.%method):%L -- %cyan(%msg%n)
             </pattern>
         </encoder>
     </appender>
@@ -47,7 +46,7 @@
         </filter>
 
         <encoder charset='UTF-8'>
-            <pattern>${pattern}</pattern>
+            <pattern>%d{yy/MM/dd HH:mm:ss} %-5level %logger{20}.%method:%L --%msg%n</pattern>
         </encoder>
 
         <!-- 日志名称，如果没有File 属性，那么只会使用FileNamePattern的文件路径规则
@@ -79,7 +78,7 @@
         </filter>
 
         <encoder charset='UTF-8'>
-            <pattern>${pattern}</pattern>
+            <pattern>%d{yy/MM/dd HH:mm:ss} %logger{20}.%method:%L -- %msg%n</pattern>
         </encoder>
 
         <file>${logPath}/debug/debug.log</file>
@@ -100,7 +99,7 @@
         </filter>
 
         <encoder charset='UTF-8'>
-            <pattern>${pattern}</pattern>
+            <pattern>%d{yy/MM/dd HH:mm:ss} %logger{20}.%method:%L --%msg%n</pattern>
         </encoder>
 
         <file>${logPath}/err/err.log</file>
@@ -128,7 +127,7 @@
 
     <!--指定级别，指定appender(利用logback输入mybatis的sql日志)
        注意：如果不加 additivity="false" 则此logger会将输出转发到自身以及上级的appender中，就会出现日志文件中sql重复打印-->
-    <logger name="com.yzm.mapper" level="DEBUG" additivity="false">
+    <logger name="com.yzm.mapper" level="DEBUG" additivity="true">
         <appender-ref ref="debugLog"/>
     </logger>
 
