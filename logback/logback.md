@@ -3,9 +3,9 @@
 logging:
   level:
     root: INFO
-    com.yzm.controller: ERROR
-    com.yzm.service: WARN
-    com.yzm.mapper: DEBUG
+    com.com.yzm.controller: ERROR
+    com.com.yzm.service: WARN
+    com.com.yzm.mapper: DEBUG
   file:
     name: C:\log\demo.log
 #  file:
