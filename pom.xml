@@ -12,6 +12,7 @@
         <module>springboot_01</module>
         <module>log4j</module>
         <module>logback</module>
+        <module>log4j2</module>
     </modules>
 
     <properties>

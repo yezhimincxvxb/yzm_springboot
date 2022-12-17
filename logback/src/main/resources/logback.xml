@@ -120,14 +120,14 @@
         additivity:是否向上级logger传递打印信息。默认是true(当为true时，还会被匹配到的root再次输出一次log)。
     -->
     <!--不指定级别，不指定appender-->
-    <logger name="com.com.yzm.controller"/>
+    <logger name="com.yzm.logback.controller"/>
 
     <!--指定级别，不指定appender-->
-    <logger name="com.com.yzm.service" level="WARN"/>
+    <logger name="com.yzm.logback.service" level="WARN"/>
 
     <!--指定级别，指定appender(利用logback输入mybatis的sql日志)
        注意：如果不加 additivity="false" 则此logger会将输出转发到自身以及上级的appender中，就会出现日志文件中sql重复打印-->
-    <logger name="com.com.yzm.mapper" level="DEBUG" additivity="true">
+    <logger name="com.yzm.logback.mapper" level="DEBUG" additivity="true">
         <appender-ref ref="debugLog"/>
     </logger>
 

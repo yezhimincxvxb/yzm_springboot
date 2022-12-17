@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL
+    status：用来指定log4j本身的打印日志的级别。
+    monitorInterval：用于指定log4j自动重新配置的监测间隔时间，单位是s,最小是5s。-->
+<configuration status="warn" monitorInterval="5">
+    <properties>
+        <property name="LOG_HOME">./log4j2/logs</property>
+    </properties>
+
+    <Appenders>
+        <!-- 日志输出到控制台 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yy/MM/dd HH:mm:ss} [%-5level] [%t] %c{20}:%L -- %m%n"/>
+        </Console>
+
+        <File name="debugFile" fileName="${LOG_HOME}/debug/debug.log" append="true">
+            <!--只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="ACCEPT"/>
+            <PatternLayout pattern="%d{yy/MM/dd HH:mm:ss} %l -- %m%n"/>
+        </File>
+
+        <File name="infoFile" fileName="${LOG_HOME}/info/info.log" append="true">
+            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="ACCEPT"/>
+            <PatternLayout pattern="%d{yy/MM/dd HH:mm:ss} [%-5level] %l -- %m%n"/>
+        </File>
+
+        <File name="errorFile" fileName="${LOG_HOME}/error/error.log" append="true">
+            <!-- ThresholdFilter：临界值过滤器，过滤掉低于指定临界值的日志。过滤掉所有低于ERROR级别的日志 -->
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="%d{yy/MM/dd HH:mm:ss} %l -- %m%n"/>
+        </File>
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.yzm.log4j2.controller" level="warn" />
+        <Logger name="com.yzm.log4j2.service" level="error" />
+        <Logger name="com.yzm.log4j2.mapper" level="debug">
+            <AppenderRef ref="debugFile"/>
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="infoFile"/>
+            <AppenderRef ref="errorFile"/>
+        </Root>
+    </Loggers>
+</configuration>
