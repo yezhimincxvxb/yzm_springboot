@@ -2,8 +2,8 @@ package com.yzm.logback.controller;
 
 import com.yzm.logback.entity.User;
 import com.yzm.logback.service.UserService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 public class HelloController {
 
-    private final Log log = LogFactory.getLog(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserService userService;
