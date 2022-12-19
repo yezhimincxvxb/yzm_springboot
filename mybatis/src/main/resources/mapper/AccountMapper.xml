@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzm.mybatis.mapper.AccountMapper">
+
+    <resultMap id="BaseResultMap" type="account">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="pay_password" property="payPassword"/>
+        <result column="total_money" property="totalMoney"/>
+        <result column="available_money" property="availableMoney"/>
+        <result column="frozen_money" property="frozenMoney"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="create_date" property="createDate"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id,username, pay_password, total_money, available_money, frozen_money, update_date, create_date
+    </sql>
+
+    <insert id="save" parameterType="account">
+        insert into account(user_id,username,pay_password,total_money,available_money,frozen_money,update_date,create_date)
+        values(#{userId},#{username},#{payPassword},#{totalMoney},#{availableMoney},#{frozenMoney},#{updateDate},#{createDate})
+    </insert>
+
+    <insert id="update" parameterType="account">
+        update account
+        set username = #{username}
+        where id = #{id}
+    </insert>
+
+    <insert id="delete" parameterType="integer">
+        delete from account
+        where id = #{id}
+    </insert>
+
+    <select id="getOne" parameterType="integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from account where id = #{id}
+    </select>
+
+    <select id="list" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from account
+    </select>
+
+    <select id="page" parameterType="accountVo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from account
+    </select>
+
+</mapper>
