@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
 
     <modules>
-
+        <module>fastjson</module>
+        <module>object_mapper</module>
+        <module>helper</module>
     </modules>
 </project>
