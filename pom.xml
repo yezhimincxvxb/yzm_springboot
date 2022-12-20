@@ -16,6 +16,8 @@
         <module>log</module>
         <module>data_source</module>
         <module>utils</module>
+        <module>jwt</module>
+        <module>annotation</module>
     </modules>
 
     <properties>

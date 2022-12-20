@@ -9,12 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>utils</artifactId>
+    <artifactId>annotation</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>fastjson</module>
-        <module>helper</module>
-        <module>jackson</module>
+        <module>aop</module>
+        <module>datamasking</module>
     </modules>
 </project>

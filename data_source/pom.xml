@@ -15,6 +15,7 @@
     <modules>
         <module>jdbc</module>
         <module>druid</module>
+        <module>hikari</module>
     </modules>
 
 </project>
