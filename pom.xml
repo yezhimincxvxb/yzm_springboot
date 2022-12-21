@@ -16,8 +16,12 @@
         <module>log</module>
         <module>data_source</module>
         <module>utils</module>
-        <module>jwt</module>
         <module>annotation</module>
+        <module>safe</module>
+        <module>cache</module>
+        <module>json</module>
+        <module>thread</module>
+        <module>unit</module>
     </modules>
 
     <properties>
