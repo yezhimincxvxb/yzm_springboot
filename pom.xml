@@ -10,18 +10,18 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>springboot_01</module>
-        <module>mybatis</module>
         <module>design_pattern</module>
         <module>java_base</module>
         <module>log</module>
-        <module>data_source</module>
         <module>utils</module>
         <module>annotation</module>
         <module>safe</module>
         <module>cache</module>
-        <module>json</module>
+        <module>mapping</module>
         <module>thread</module>
         <module>unit</module>
+        <module>swagger2</module>
+        <module>db</module>
     </modules>
 
     <properties>
