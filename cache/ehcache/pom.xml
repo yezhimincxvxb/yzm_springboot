@@ -3,22 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>yzm_springboot</artifactId>
+        <artifactId>cache</artifactId>
         <groupId>org.example</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>annotation</artifactId>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>aop</module>
-        <module>datamasking</module>
-        <module>submit</module>
-        <module>serialize</module>
-        <module>locker</module>
-    </modules>
+    <artifactId>ehcache</artifactId>
 
     <dependencies>
         <dependency>
@@ -27,8 +18,25 @@
         </dependency>
 
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Spring Boot 缓存支持启动器 -->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <!-- Ehcache 坐标 -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
         </dependency>
 
         <dependency>

@@ -14,5 +14,6 @@
 
     <modules>
         <module>helper</module>
+        <module>excel</module>
     </modules>
 </project>
