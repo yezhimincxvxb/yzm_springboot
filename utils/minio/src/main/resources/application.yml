@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: minio-demo
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 200MB
+
+minio:
+  endpoint: http://192.168.101.129:9000
+  accessKey: minioadmin
+  secretKey: miniostorage
