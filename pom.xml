@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>springboot_01</module>
+        <module>base</module>
         <module>design_pattern</module>
         <module>log</module>
         <module>utils</module>

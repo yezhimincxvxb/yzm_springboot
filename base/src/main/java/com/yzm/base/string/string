@@ -1,0 +1,87 @@
+boolean isEmpty()：是否是空字符串
+String trim()：去除字符串首尾空格
+byte[] getBytes()：字符串转byte数组
+char[] toCharArray()：字符串转char数组
+boolean equals(Object anObject)：比较两个字符串的值是否相同
+boolean equalsIgnoreCase(String anotherString)：比较是否相同，忽略大小写
+boolean contains(CharSequence s)：字符串是否包含子字符串
+String concat(String str)：在字符串后面拼接字符串
+int indexOf(String str, int fromIndex)：返回子字符串在字符串中第一次出现的索引位置，否则返回-1；fromIndex：从第几个索引开始排查
+int lastIndexOf(String str, int fromIndex)：返回子字符串在字符串中最后一次出现的索引位置，否则返回-1；fromIndex：从第几个索引开始排查
+String[] split(String regex)：根据分隔符切分字符串为字符串数组
+substring(int beginIndex, int endIndex)：截取字符串(包头不包尾)
+boolean startsWith(String prefix)：字符串是否以prefix开头
+boolean endsWith(String suffix)：字符串是否以suffix结尾
+String toUpperCase()：字符串转大写
+String toLowerCase()：字符串转小写
+boolean matches(String regex)：字符串是否满足匹配规则
+char charAt(int index)：根据索引获取对应的字符
+String replace(CharSequence target, CharSequence replacement)：将所有字符串替换成新的值
+String replaceAll(String regex, String replacement)：将所有满足正则匹配的替换成新的值
+String replaceFirst(String regex, String replacement)：将第一个满足正则匹配的替换成新的值
+String join(CharSequence delimiter, CharSequence... elements)：将元素根据连接符拼接成字符串
+String valueOf(Object 0)：将其他类型转换成字符串
+String format(String format, Object... args)：格式化
+==================================================================================================================================
+转  换  符         说    明                      示    例                                            结果
+%s                字符串类型                     String format = String.format("%s", 300);          // format = 300
+%c                 字符类型                      String format = String.format("%c", 97)            // format = a
+%b                 布尔类型                      String format = String.format("%b", 3 > 7)         // format = false
+%d              整数类型（十进制）                String format = String.format("%d", 0b100);        // format = 4(二进制转十进制)
+%x              整数类型（十六进制）              String format = String.format("%x", 100);          // format = 64(十进制转十六进制)
+%o              整数类型（八进制）                String format = String.format("%o", 100);          // format = 144(十进制转八进制)
+%f                 浮点类型                      String format = String.format("%1.2f", 99.9999);   // format = 100.00(保留两位小数)
+%a              十六进制浮点类型                  略
+%e                 指数类型                      略
+%g              通用浮点类型（f和e类型中较短的）   略
+%h                 散列码                        String format = String.format("%h", "A");          // format = 41
+%%               百分比类型                      String format = String.format("%d%%", 100);         // format = 100%
+%n                  换行符
+%tx             日期与时间类型
+            （x代表不同的日期与时间转换符)
+======================================================================================================================================
+标志          说明                                                       示例                                                 结果
++         为正数或者负数添加符号                                    String format = String.format("%+d", 100);         // format = +100
+−         左对齐                                                   String format = String.format("%5d", 100);         // format =   100
+                                                                   String format = String.format("%-5d", 100);        // format = 100xx (x表示空格)
+0         数字前面补0                                              String format = String.format("%05d", 100);         // format = 00100
+空格      在整数之前添加指定数量的空格                               String format = String.format("% 5d", 100);        // format =   100
+,         以“,”对数字分组                                          String format = String.format("%,d", 1000000000);   // format = 1,000,000,000
+(         使用括号包含负数                                         String format = String.format("%(d", -100);         // format = (100)
+#         如果是浮点数则包含小数点，如果是16进制或8进制则添加0x或0    String format = String.format("%#x", 100);          // format = 64(十进制转十六进制表示)
+<         格式化前一个转换符所描述的参数                            String format = String.format("%f 和 %<1.2f", 100.019);// format = 100.019000 和 100.02
+$         被格式化的参数索引                                       String format = String.format("第一个参数：%1$s，第三个参数：%3$s，第二个参数：%2$s", 1, 2, 3); // format = 第一个参数：1，第三个参数：3，第二个参数：2
+========================================================================================================================================
+时间格式转换符         说    明                              示    例
+c               包括全部日期和时间信息             String format = String.format("%tc", new Date()); // format = 星期五 八月 14 17:32:38 CST 2020
+F               “年-月-日”格式                    String format = String.format("%tF", new Date()); // format = 2020-08-14
+D               “月/日/年”格式                    String format = String.format("%tD", new Date()); // format = 08/14/20
+r               “HH:MM:SS PM”格式（12时制）       String format = String.format("%tr", new Date()); // format = 05:34:20 下午
+T               “HH:MM:SS”格式（24时制）          String format = String.format("%tT", new Date()); // format = 17:34:38
+R               “HH:MM”格式（24时制）             String format = String.format("%tR", new Date()); // format = 17:35
+
+b或者h           月份简称中：十月                     String format = String.format("%tb", new Date()); // format = 八月；String.format(Locale.US, "%tb", new Date()) // Aug
+B                月份全称中：十月                     String.format(Locale.US, "%tB", new Date()) // August
+a                星期的简称中：星期六                 String.format(Locale.US, "%ta", new Date()) // Mon
+A                星期的全称中：星期六                 String.format(Locale.US, "%tA", new Date()) // Monday
+C                年的前两位数字（不足两位前面补0）20
+y                年的后两位数字（不足两位前面补0）07
+Y                4位数字的年份（不足4位前面补0）2007
+j                一年中的天数（即年的第几天）300
+m                两位数字的月份（不足两位前面补0）10
+d                两位数字的日（不足两位前面补0）27
+e                月份的日（前面不补0）5
+
+H           2位数字24时制的小时（不足2位前面补0）                           15
+I           2位数字12时制的小时（不足2位前面补0）                           03
+k           2位数字24时制的小时（前面不补0）                                15
+l           2位数字12时制的小时（前面不补0）                                 3
+M           2位数字的分钟（不足2位前面补0）                                 03
+S           2位数字的秒（不足2位前面补0）                                   09
+L           3位数字的毫秒（不足3位前面补0）                                 015
+N           9位数字的毫秒数（不足9位前面补0）                               562000000
+p           小写字母的上午或下午标记                                        中：下午英：pm
+z           相对于GMT的RFC822时区的偏移量                                  +0800
+Z           时区缩写字符串                                                 CST
+s           1970-1-1 00:00:00 到现在所经过的秒数                           1193468128
+Q           1970-1-1 00:00:00 到现在所经过的毫秒数                         1193468128984

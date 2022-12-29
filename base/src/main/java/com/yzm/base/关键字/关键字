@@ -1,0 +1,76 @@
+### final 关键字
+final 修饰的类不能被继承，final 类中的所有成员方法都会被隐式的指定为 final 方法；
+final 修饰的方法不能被重写；
+final 修饰的变量是常量，如果是基本数据类型的变量，则其数值一旦在初始化之后便不能更改；如果是引用类型的变量，则在对其初始化之后便不能让其指向另一个对象（引用指向的内容是可以改变的）。
+
+final finally finalize区别
+final可以修饰类、变量、方法，修饰类表示该类不能被继承、修饰方法表示该方法不能被重写、修饰变量表示该变量是一个常量不能被重新赋值。
+finally一般作用在try-catch代码块中，在处理异常的时候，通常我们将一定要执行的代码方法finally代码块中，表示不管是否出现异常，该代码块都会执行，一般用来存放一些关闭资源的代码。
+finalize是一个方法，属于Object类的一个方法，而Object类是所有类的父类，该方法一般由垃圾回收器来调用，当我们调用System.gc() 方法的时候，由垃圾回收器调用finalize()，回收垃圾，一个对象是否可回收的最后判断。
+
+### static 关键字
+static 关键字主要有以下四种使用场景：
+
+修饰成员变量和成员方法: 被 static 修饰的成员属于类，不属于单个这个类的某个对象，被类中所有对象共享，可以并且建议通过类名调用。
+                    被 static 声明的成员变量属于静态成员变量，静态变量 存放在 Java 内存区域的方法区。调用格式：类名.静态变量名 类名.静态方法名()
+静态代码块: 静态代码块定义在类中方法外, 静态代码块在非静态代码块之前执行(静态代码块—>非静态代码块—>构造方法)。 该类不管创建多少对象，静态代码块只执行一次.
+静态内部类（static 修饰类的话只能修饰内部类）： 静态内部类与非静态内部类之间存在一个最大的区别: 非静态内部类在编译完成之后会隐含地保存着一个引用，该引用是指向创建它的外围类，
+                    但是静态内部类却没有。没有这个引用就意味着：1. 它的创建是不需要依赖外围类的创建。2. 它不能使用任何外围类的非 static 成员变量和方法。
+静态导包(用来导入类中的静态资源，1.5 之后的新特性): 格式为：import static 这两个关键字连用可以指定导入某个类中的指定静态资源，并且不需要使用类名调用类中静态成员，可以直接使用类中静态成员变量和成员方法。
+
+### this 关键字
+this 关键字用于引用类的当前实例。 例如：
+
+class Manager {
+    Employees[] employees;
+    void manageEmployees() {
+        int totalEmp = this.employees.length;
+        System.out.println("Total employees: " + totalEmp);
+        this.report();
+    }
+    void report() { }
+}
+在上面的示例中，this 关键字用于两个地方：
+
+this.employees.length：访问类 Manager 的当前实例的变量。
+this.report（）：调用类 Manager 的当前实例的方法。
+此关键字是可选的，这意味着如果上面的示例在不使用此关键字的情况下表现相同。 但是，使用此关键字可能会使代码更易读或易懂。
+
+### super 关键字
+super 关键字用于从子类访问父类的变量和方法。 例如：
+
+public class Super {
+    protected int number;
+    protected showNumber() {
+        System.out.println("number = " + number);
+    }
+}
+public class Sub extends Super {
+    void bar() {
+        super.number = 10;
+        super.showNumber();
+    }
+}
+在上面的例子中，Sub 类访问父类成员变量 number 并调用其父类 Super 的 showNumber（） 方法。
+
+使用 this 和 super 要注意的问题：
+在构造器中使用 super() 调用父类中的其他构造方法时，该语句必须处于构造器的首行，否则编译器会报错。另外，this 调用本类中的其他构造方法时，也要放在首行。
+this、super 不能用在 static 方法中。
+
+### volatile 关键字
+volatile关键字是由JVM提供的最轻量级同步机制。
+
+特性：
+volatile修饰的变量
+可见性：更新值立即同步到主内存和每次使用前从主内存刷新获取，在各个线程中不存在一致性问题。
+有序性：禁止指令重排序优化。
+Object instance = new Object();可分解为：
+memory =allocate(); //分配对象的内存空间
+ctorInstance(memory); //初始化对象
+instance =memory; //设置instance指向刚分配的内存地址
+操作2依赖1，但是操作3不依赖2，所以有可能出现1,3,2的顺序，当出现这种顺序的时候，虽然instance不为空，但是对象也有可能没有正确初始化，会出错。
+
+### transient 关键字
+1）一旦变量被transient修饰，变量将不再是对象持久化的一部分，该变量内容在序列化后无法获得访问。
+2）transient关键字只能修饰变量，而不能修饰方法和类。注意，本地变量是不能被transient关键字修饰的。如果是用户自定义的类变量，则该类需要实现Serializable接口。
+3）被transient关键字修饰的变量不再能被序列化，一个静态变量不管是否被transient修饰，均不能被序列化。

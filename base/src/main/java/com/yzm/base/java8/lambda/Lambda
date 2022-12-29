@@ -1,0 +1,154 @@
+### Lambda表达式语法结构：
+Lambda表达式通常使用(param)->(body)语法书写，基本格式如下：
+
+//没有参数
+() -> body
+
+// 1个参数
+(param) -> body
+// 或
+(param) ->{ body; }
+
+// 多个参数
+(param1, param2...) -> { body }
+// 或
+(type1 param1, type2 param2...) -> { body }
+
+### 函数式接口
+定义：函数式接口(Functional Interface)是Java8对一类特殊类型的接口的称呼。这类接口只定义了唯一的抽象方法的接口（除了隐含的Object对象的公共方法）
+@FunctionalInterface
+public interface Runnable { ... }
+@FunctionalInterface注解是用来表示该接口要符合函数式接口的规范，除了隐含的Object对象的公共方法以外只可有一个抽象方法。
+当然，如果某个接口只定义一个抽象方法，不使用该注解也是可以使用Lambda表达式的，但是没有该注解的约束，后期可能会新增其他的抽象方法，导致已经使用Lambda表达式的地方出错。
+使用@FunctionalInterface从编译层面解决了可能的错误。
+比如当注解@FunctionalInterface之后，写两个抽象方法在接口内，会出现以下提示：
+    Multiple non-overriding abstract methods found in interface com.secbro2.lambda.NoParamInterface
+注意此处的方法限制为抽象方法，如果接口内有其他静态方法则不会受限制。
+
+常见的四大函数式接口：
+Consumer <T>：消费型接口，有参无返回值
+Supplier <T>：供给型接口，无参有返回值
+Function <T,R>：函数式接口，有参有返回值
+Predicate <T>： 断言型接口，有参有返回值，返回值是boolean类型
+
+
+Collections：JDK集合工具类
+void sort(List<T> list)：集合元素排序-升序
+void sort(List<T> list，比较器Comparator)：集合元素根据比较器排序 Comparator.reversed() 倒序
+void reverse(List<T> list)：集合元素反转
+void shuffle(List<T> list)：打乱集合元素顺序(随机)
+T min(List<T> list，比较器Comparator)：根据给定集合中元素的自然顺序返回其最小元素，有比较器则根据比较器指定的顺序
+T max(List<T> list，比较器Comparator)：根据给定集合中元素的自然顺序返回其最大元素，有比较器则根据比较器指定的顺序
+
+boolean disjoint(Collection c1, Collection c2)：如果指定的两个集合没有共同的元素，则返回true
+boolean addAll(Collection c, T... elements)：添加元素
+int binarySearch(List<T> list, 查找元素key)：二分查找法，前提是集合是有序的
+int frequency(Collection c, Object o)：返回集合中相同元素的个数
+void swap(List<T> list, 索引i, 索引j)：交换索引位置的元素
+boolean replaceAll(List<T> list, T oldVal, T newVal)：使用新值将指定的旧元素覆盖
+void rotate(List<T> list, int distance)：将指定个数的元素从最后边移到前面来
+int indexOfSubList(List<T> source, List<T> target)：返回target(子列表)在source(父列表)首次出现的索引位置，-1则不被source包含
+
+Collection<T> unmodifiableCollection(Collection<T> c)：将可变的Collection对象转换成不可变的，增删改都会报错
+Set<T> unmodifiableSet(Set<T> s)
+List<T> unmodifiableList(List<T> l)
+Map<K,V> unmodifiableMap(Map<K,V> m)
+
+Collection<T> synchronizedCollection(Collection<T> c)：将非线程安全的Collection对象转换成同步对象
+Set<T> synchronizedSet(Set<T> s)
+List<T> synchronizedList(List<T> l)
+Map<K,V> synchronizedMap(Map<K,V> m)
+
+List<T> singletonList(T o)：创建单例List，只能有一个元素，不可变
+Map<K,V> singletonMap(K key, V value)
+------------------------------------------------------------------------------------------------------------------------
+Objects：JDK对象工具类
+boolean equals(Object a, Object b)：如果参数彼此相等，则返回true，否则返回false
+boolean isNull(Object obj)：判断是null
+boolean nonNull(Object obj)：判断不是null
+T requireNonNull(T obj)：
+T requireNonNull(T obj, String message)：不为null，否则报空指针异常
+------------------------------------------------------------------------------------------------------------------------
+Arrays：JDK数组工具类
+void sort(Object[] o)：自然排序
+void swap(Object[] x, int a, int b)：交换索引位置的元素
+int binarySearch(Object[] a, Object key)：二分查找法
+Object[] copyOf(Object[] original, int newLength)：拷贝数组，长度小则截断，长就补0
+T[] copyOfRange(T[] original, int from, int to)：拷贝范围长度的数组
+List<T> asList(T... a)：元素转集合
+------------------------------------------------------------------------------------------------------------------------
+Assert：Spring断言
+void isTrue(boolean expression, String byte[] encode(byte[] src)message)：必须为真
+void isNull(Object object, String message)：必须为null
+void notNull(Object object, String message)：不能为null
+void hasLength(String text, String message)：字符串不能为空，可以是空格字符串
+void hasText(String text, String message)：字符串不能为空，不能是空格字符串
+void doesNotContain(String textToSearch, String substring, String message)：不能包含子字符串substring
+void notEmpty(Object[] array, String message)：数组、集合不能为空
+void noNullElements(Object[] array, String message)：数组、集合不能包含null元素
+void isInstanceOf(Class<?> type, Object obj, String message)：对象必须是指定类的实例
+------------------------------------------------------------------------------------------------------------------------
+StringUtils：Spring字符串工具类
+boolean hasLength(CharSequence str)：不能为空，可以是空格
+boolean hasText(CharSequence str)：不能为空，不能是空格
+boolean containsWhitespace(CharSequence str)：包含空格
+boolean startsWithIgnoreCase(String str, String prefix)：以什么为前缀
+boolean endsWithIgnoreCase(String str, String suffix)：以什么为后缀
+int countOccurrencesOf(String str, String sub)：子字符串sub在str中出现的次数
+String replace(String inString, String oldPattern, String newPattern)：旧换新
+String unqualify(String qualifiedName, char separator)：截取指定分隔符之后的字符串
+String capitalize(String str)：首字母大写
+String uncapitalize(String str)：首字母小写
+------------------------------------------------------------------------------------------------------------------------
+CollectionUtils：Spring集合工具类
+boolean isEmpty(Collection<?> collection)：为null或空
+boolean isEmpty(Map<?, ?> map)
+boolean containsInstance(Collection<?> collection, Object element)：判断 List/Set 中是否包含某个对象
+boolean containsAny(Collection<?> source, Collection<?> candidates)：判断 List/Set 是否包含某些对象中的任意一个
+------------------------------------------------------------------------------------------------------------------------
+ObjectUtils：Spring对象工具类
+boolean isArray(Object obj)：判断对象是否为数组
+boolean isEmpty(Object obj)：判断对象是否为null、空
+boolean containsElement(Object[] array, Object element)：数组是否包含某个元素
+Object[] toObjectArray(Object source)：对象转数组
+boolean nullSafeEquals(Object o1, Object o2)：安全地比较
+String nullSafeToString(Object[] array)：数组转字符串格式
+------------------------------------------------------------------------------------------------------------------------
+Base64Utils：Spring编码解码
+byte[] encode(byte[] src)：编码
+byte[] decode(byte[] src)：解码
+byte[] encodeUrlSafe(byte[] src)：url编码
+byte[] decodeUrlSafe(byte[] src)：url解码
+DigestUtils：MD5加密
+String md5DigestAsHex(byte[] bytes)
+------------------------------------------------------------------------------------------------------------------------
+FileCopyUtils：Spring文件工具类
+byte[] copyToByteArray(File in)：从文件中读入到字节数组中
+byte[] copyToByteArray(InputStream in)：从输入流中读入到字节数组中
+String copyToString(Reader in)：从输入流中读入到字符串中
+void copy(byte[] in, File out)：从字节数组到文件
+int copy(File in, File out)：从文件到文件
+void copy(byte[] in, OutputStream out)：从字节数组到输出流
+int copy(InputStream in, OutputStream out)：从输入流到输出流
+int copy(Reader in, Writer out)：从输入流到输出流
+void copy(String in, Writer out)：从字符串到输出流
+------------------------------------------------------------------------------------------------------------------------
+ReflectionUtils：Spring反射工具类
+Field findField(Class<?> clazz, String name)：在类中查找指定属性
+Field findField(Class<?> clazz, String name, Class<?> type)：同上，多提供了属性的类型
+Object getField(Field field, Object target)：获取 target 对象的 field 属性值
+void setField(Field field, Object target, Object value)：设置 target 对象的 field 属性值，值为 value
+void shallowCopyFieldState(Object src, Object dest)：同类对象属性浅拷贝赋值
+void makeAccessible(Field field)：取消 Java 的权限控制检查。以便后续读写该私有属性
+
+Method findMethod(Class<?> clazz, String name)：在类中查找指定方法
+Method findMethod(Class<?> clazz, String name, Class<?>... paramTypes)：同上，额外提供方法参数类型作查找条件
+Method[] getAllDeclaredMethods(Class<?> leafClass)：获得类中所有方法，包括继承而来的
+Method[] getDeclaredMethods(Class<?> leafClass)：获得类中所有方法
+Object invokeMethod(Method method, Object target)：执行方法
+Object invokeMethod(Method method, Object target, Object... args)：同上，提供方法参数
+void makeAccessible(Method method)：取消 Java 权限检查。以便后续执行该私有方法
+
+Constructor<T> accessibleConstructor(Class<T> clazz, Class<?>... parameterTypes)：在类中查找指定构造方法
+void makeAccessible(Constructor<?> ctor)：取消 Java 权限检查。以便后续执行私有构造方法
+------------------------------------------------------------------------------------------------------------------------
