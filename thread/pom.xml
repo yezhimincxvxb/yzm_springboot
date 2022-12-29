@@ -11,5 +11,12 @@
 
     <artifactId>thread</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>async</module>
+        <module>executor</module>
+        <module>lock</module>
+        <module>scheduled</module>
+        <module>other</module>
+    </modules>
 
 </project>

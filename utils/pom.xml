@@ -16,5 +16,7 @@
         <module>helper</module>
         <module>file</module>
         <module>minio</module>
+        <module>pinyin</module>
+        <module>httpclient</module>
     </modules>
 </project>

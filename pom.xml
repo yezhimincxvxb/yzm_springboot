@@ -23,6 +23,7 @@
         <module>swagger2</module>
         <module>db</module>
         <module>excel</module>
+        <module>thymeleaf</module>
     </modules>
 
     <properties>

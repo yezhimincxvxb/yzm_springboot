@@ -8,5 +8,5 @@ spring:
 
 minio:
   endpoint: http://192.168.101.129:9000
-  accessKey: minioadmin
-  secretKey: miniostorage
+  accessKey: 0yzcjfbPdNWBGKtp
+  secretKey: yIR0Dot7VSpSiUUK5i5iLuf4iMCkga3n

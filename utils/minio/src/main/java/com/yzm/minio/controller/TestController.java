@@ -4,11 +4,10 @@ import com.yzm.minio.config.UploadResponse;
 import com.yzm.minio.utils.MinioUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @RestController
@@ -18,9 +17,7 @@ public class TestController {
     private MinioUtil minioUtil;
 
     /**
-     * @author: xx
-     * @date: 2022/5/25 15:32
-     * @description: 上传文件
+     * 上传文件
      */
     @PostMapping("/upload")
     public UploadResponse minioUpload(MultipartFile file) {
@@ -33,11 +30,16 @@ public class TestController {
         return response;
     }
 
+    /**
+     * 文件下载
+     */
+    @GetMapping("/download/{fileName}")
+    public void download(@PathVariable("fileName") String fileName, HttpServletResponse response) {
+        minioUtil.downloadFile(response, "bucket01", fileName);
+    }
 
     /**
-     * @author: xx
-     * @date: 2022/5/25 15:32
-     * @description: 上传视频
+     * 上传视频
      */
     @PostMapping("/uploadVideo")
     public UploadResponse uploadVideo(@RequestParam(value = "file") MultipartFile file) {

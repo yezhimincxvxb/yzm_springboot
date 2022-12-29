@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Hello World</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}"/>
+</head>
+<body>
+
+<h1>Yzm</h1>
+
+<h2>url表达式</h2>
+<a href="https://www.baidu.com" th:href="@{http://localhost:8080/order/info?id=${id}}">绝对路径</a>
+<a href="https://www.baidu.com" th:href="@{http://localhost:8080/order/info(id=${id})}">绝对路径</a>
+</br>
+
+<a href="https://www.baidu.com" th:href="@{/order/info(id=${id})}">相对路径</a>
+</br>
+
+<a href="https://www.baidu.com" th:href="@{/order/info(id=${id},name=${name})}">多参数传递，逗号隔开</a>
+<a href="https://www.baidu.com" th:href="@{/order/info?id=${id}&name=${name}}">多参数传递，逗号隔开</a>
+
+</body>
+</html>
