@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzm.plus.mapper.AccountMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yzm.plus.entity.Account">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="username" property="username" />
+        <result column="pay_password" property="payPassword" />
+        <result column="total_money" property="totalMoney" />
+        <result column="available_money" property="availableMoney" />
+        <result column="frozen_money" property="frozenMoney" />
+        <result column="version" property="version" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, username, pay_password, total_money, available_money, frozen_money, version, create_date, update_date
+    </sql>
+
+</mapper>

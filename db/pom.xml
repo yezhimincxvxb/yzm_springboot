@@ -18,6 +18,7 @@
         <module>hikari</module>
         <module>transactional</module>
         <module>mybatis</module>
+        <module>mybatisplus</module>
     </modules>
 
 </project>
