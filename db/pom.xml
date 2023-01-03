@@ -19,6 +19,7 @@
         <module>transactional</module>
         <module>mybatis</module>
         <module>mybatisplus</module>
+        <module>mongodb</module>
     </modules>
 
 </project>
