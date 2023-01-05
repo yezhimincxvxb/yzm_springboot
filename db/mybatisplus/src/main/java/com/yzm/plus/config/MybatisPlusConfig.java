@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @MapperScan("com.yzm.plus.mapper")
-@EnableTransactionManagement // 开启事务
 public class MybatisPlusConfig {
 
     /**
