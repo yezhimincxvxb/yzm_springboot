@@ -1,11 +1,15 @@
 package com.yzm.helper.date;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtils {
@@ -67,10 +71,32 @@ public class DateUtils {
     }
 
     public static boolean currentBetween(String startStr, String endStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(INCLINED_PATTERN);
         LocalDateTime startDateTime = LocalDateTime.parse(startStr, formatter);
         LocalDateTime endDateTime = LocalDateTime.parse(endStr, formatter);
         return currentBetween(startDateTime, endDateTime);
+    }
+
+    /**
+     * 本月第一天
+     */
+    public Date firstDayOfMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return calendar.getTime();
+    }
+
+    /**
+     * 本月第一天
+     */
+    public Date firstDayOfMonth2() {
+        LocalDate localDate = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
+        try {
+            return new SimpleDateFormat(DATE_PATTERN).parse(localDate.toString());
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     public static void main(String[] args) {

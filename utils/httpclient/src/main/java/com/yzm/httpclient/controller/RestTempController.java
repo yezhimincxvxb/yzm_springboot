@@ -13,7 +13,7 @@ import java.util.Map;
 @RequestMapping("restTemp")
 public class RestTempController {
 
-    private static final String baseUrl = "http://localhost:8090/restTemp/";
+    private static final String baseUrl = "http://localhost:8080/restTemp/";
 
     @Autowired
     public RestTemplate restTemplate;

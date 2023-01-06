@@ -1,4 +1,4 @@
-package com.yzm.base._integer;
+package com.yzm.base.basic_data_type基本数据类型;
 
 public class IntegerDemo {
 
