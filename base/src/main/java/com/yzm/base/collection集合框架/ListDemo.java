@@ -1,4 +1,4 @@
-package com.yzm.base.collection;
+package com.yzm.base.collection集合框架;
 
 import java.util.*;
 
