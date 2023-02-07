@@ -2,6 +2,7 @@ package com.yzm.base.collection集合框架;
 
 import java.util.LinkedList;
 
+@SuppressWarnings("all")
 public class LinkedListDemo {
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
@@ -14,5 +15,6 @@ public class LinkedListDemo {
 
         list.remove();
         System.out.println(list);
+
     }
 }
