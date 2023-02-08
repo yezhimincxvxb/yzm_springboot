@@ -1,4 +1,4 @@
-package com.yzm.base.collection集合框架;
+package com.yzm.base.collection集合框架.List;
 
 import java.util.LinkedList;
 
