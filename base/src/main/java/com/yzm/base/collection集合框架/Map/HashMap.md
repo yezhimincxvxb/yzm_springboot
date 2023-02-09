@@ -220,6 +220,36 @@ public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneabl
         }
         return newTab;
     }
+    
+    //---------------------获取元素---------------------
+    // 计算key的hash值
+    public V get(Object key) {
+        Node<K,V> e;
+        return (e = getNode(hash(key), key)) == null ? null : e.value;
+    }
+
+    final Node<K,V> getNode(int hash, Object key) {
+        Node<K,V>[] tab; Node<K,V> first, e; int n; K k;
+        // 数组已初始化并且根据hash值对数组长度取余得到索引位置不为空
+        if ((tab = table) != null && (n = tab.length) > 0 && (first = tab[(n - 1) & hash]) != null) {
+            // 比较索引位置节点的hash值、键值和equals，若一致则返回该节点
+            if (first.hash == hash && ((k = first.key) == key || (key != null && key.equals(k))))
+                return first;
+            // 不一致，判断首节点是否有下一个节点
+            if ((e = first.next) != null) {
+                // 节点可能是树节点，执行树查找
+                if (first instanceof TreeNode)
+                    return ((TreeNode<K,V>)first).getTreeNode(hash, key);
+                // 遍历链表，判断Key是否存在
+                do {
+                    if (e.hash == hash &&
+                            ((k = e.key) == key || (key != null && key.equals(k))))
+                        return e;
+                } while ((e = e.next) != null);
+            }
+        }
+        return null;
+    }
 }
 ```
 # HashMap的实现原理
@@ -228,18 +258,34 @@ public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneabl
 ```
 # put添加流程
 ```text
-1、添加元素时，判断数组是否为空，是则进行扩容resize()
-2、根据hash值与数组大小计算索引位置，若该位置为null则直接插入元素
-3、索引位置不为null，比较hash值一致并且key相等、equals()为true，说明key相同覆盖旧的
-4、key不相同，判断当前节点是否树节点，是则执行树插入操作
-5、不是树节点，遍历链表，比较key是否相同，相同则覆盖旧值并结束遍历；
-   遍历完没有匹配成功，若链表长度小于8则新增节点在链表尾部插入元素，大于8则将链表转换成红黑树执行树插入
-6、最后判断数组大小是否到达临界值，是则进行扩容
+1、首先获取key的hashCode并经过2次位运算得到hash值
+2、然后判断节点数组是否已初始化，没有则进行扩容
+3、数组已初始化，根据hash值对数组长度取余，定位索引位置，若索引位置为空则直接新建节点
+4、索引位置不为空，比较添加元素的hash值、键值以及equals方法，来判断Key是否存在，若存在则定位节点并之后覆盖value值
+5、若不存在，则判断索引位置节点是否是树节点，若是则执行树插入操作
+6、若不是树节点，则遍历链表，判断Key是否存在，存在定位后结束遍历之后覆盖value；
+7、Key不存在则遍历到尾部新增节点，新增节点后先判断链表长度是的大于8，再判断容量是否大于64，都大于树化，只大于8则扩容
+8、最后比较集合size是否大于阈值threshold，大于则扩容 
 ```
 # 负载因子为什么是0.75
 # 扩容机制
+```text
+
+```
 # HashMap时一般使用什么类型的元素作为Key
 ```text
 String或者Integer这样的类。
 这些类是final类，不可变类，是线程安全的；可以缓存hash值，避免重复计算；覆写了hashCode()以及equals()方法。
+```
+# 为什么HashMap的长度必须是2的n次幂？
+```text
+存储元素时，需要计算hash值然后对数组长度取余，得到存储位置。对于计算机来说取余运算并不高效。
+当数组长度为2的n次幂时，取余运算可以被按位与运算代替
+```
+# HashMap 为什么在获取 hash 值时要进行位运算
+```text
+hash值 = key.hashCode()) ^ (h >>> 16)
+无符号右移16位,是为了拿到hashCode的高16位
+HashMap 数组长度一般不会超过2的16次幂,那么高16位在大多数情况是用不到的
+拿到高16位然后按位异或，是进一步降低hash碰撞的概率，使得hash值更加散列,提升性能
 ```
