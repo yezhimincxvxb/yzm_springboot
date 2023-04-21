@@ -12,7 +12,6 @@
     <artifactId>api</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>baidu_cloud</module>
     </modules>
 
     <dependencies>
